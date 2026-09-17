@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Task App</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+      min-height: 100vh;
+    }
+    .app {
+      background: white;
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 16px;
+      font-size: 22px;
+    }
+    .input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+    }
+    input:focus { border-color: #0070f3; }
+    button {
+      padding: 12px 20px;
+      background: #0070f3;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:active { background: #005bb5; }
+    ul { list-style: none; }
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+    li.done span { text-decoration: line-through; color: #999; }
+    li span { cursor: pointer; flex: 1; }
+    .delete {
+      background: #ff4d4f;
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 6px;
+    }
+    .empty { color: #999; text-align: center; padding: 20px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>📝 My Task App v1</h1>
+    <div class="input-row">
+      <input id="taskInput" type="text" placeholder="Add a new task..." />
+      <button onclick="addTask()">Add</button>
+    </div>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById('taskInput');
+    const list = document.getElementById('taskList');
+
+    function addTask() {
+      const text = input.value.trim();
+      if (!text) return;
+
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <span>${text}</span>
+        <button class="delete" onclick="this.parentElement.remove(); updateEmpty();">X</button>
+      `;
+      li.querySelector('span').onclick = () => li.classList.toggle('done');
+      list.appendChild(li);
+      input.value = '';
+      updateEmpty();
+    }
+
+    function updateEmpty() {
+      const hasItems = list.children.length > 0;
+      let empty = document.querySelector('.empty');
+      if (!hasItems && !empty) {
+        const p = document.createElement('p');
+        p.className = 'empty';
+        p.textContent = 'No tasks yet. Add one above!';
+        list.after(p);
+      } else if (hasItems && empty) {
+        empty.remove();
+      }
+    }
+
+    input.addEventListener('keypress', e => {
+      if (e.key === 'Enter') addTask();
+    });
+
+    updateEmpty();
+  </script>
+</body>
+</html>
