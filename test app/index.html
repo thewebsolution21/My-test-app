@@ -8,7 +8,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #11998e, #38ef7d);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -17,15 +17,15 @@
     }
     .form-box {
       background: white;
-      padding: 30px 24px;
+      padding: 32px 24px;
       border-radius: 16px;
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.25);
     }
     h1 {
-      color: #333;
-      font-size: 22px;
+      color: #222;
+      font-size: 23px;
       margin-bottom: 6px;
       text-align: center;
     }
@@ -51,16 +51,23 @@
       font-size: 15px;
       outline: none;
       font-family: inherit;
+      background: #fafafa;
     }
     input:focus, select:focus, textarea:focus {
-      border-color: #764ba2;
+      border-color: #11998e;
+      background: white;
     }
     textarea { resize: vertical; min-height: 70px; }
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+    .row > div { flex: 1; }
     button {
       width: 100%;
-      margin-top: 22px;
+      margin-top: 24px;
       padding: 14px;
-      background: linear-gradient(90deg, #667eea, #764ba2);
+      background: linear-gradient(90deg, #11998e, #38ef7d);
       color: white;
       border: none;
       border-radius: 10px;
@@ -73,7 +80,7 @@
 </head>
 <body>
   <form class="form-box" action="submit.html" method="GET">
-    <h1>Application Form</h1>
+    <h1>📋 Application Form</h1>
     <p class="sub">Fill in your details to apply</p>
 
     <label>Full Name</label>
@@ -82,17 +89,43 @@
     <label>Email</label>
     <input type="email" name="email" placeholder="john@example.com" required>
 
-    <label>Phone</label>
+    <label>Phone Number</label>
     <input type="tel" name="phone" placeholder="08012345678" required>
+
+    <div class="row">
+      <div>
+        <label>Date of Birth</label>
+        <input type="date" name="dob" required>
+      </div>
+      <div>
+        <label>Gender</label>
+        <select name="gender" required>
+          <option value="">--</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+
+    <label>Address</label>
+    <input type="text" name="address" placeholder="123 Main Street, Lagos" required>
 
     <label>Position Applying For</label>
     <select name="position" required>
       <option value="">-- Select --</option>
       <option>Frontend Developer</option>
       <option>Backend Developer</option>
-      <option>Designer</option>
-      <option>Manager</option>
+      <option>Full Stack Developer</option>
+      <option>UI/UX Designer</option>
+      <option>Project Manager</option>
     </select>
+
+    <label>Years of Experience</label>
+    <input type="number" name="experience" min="0" max="50" placeholder="e.g. 3" required>
+
+    <label>Highest Qualification</label>
+    <input type="text" name="qualification" placeholder="e.g. BSc Computer Science">
 
     <label>Why should we hire you?</label>
     <textarea name="reason" placeholder="Tell us briefly..."></textarea>
